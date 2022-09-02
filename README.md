@@ -7,7 +7,7 @@ Section 18 covered:
 - [x] Why Should We Use Validation?
 - [x] How to Validate Input?
 - [x] Setup & Basic Validation
-- [ ] Using Validation Error Messages
+- [x] Using Validation Error Messages
 - [ ] Built-In & Custom Validators
 - [ ] More Validators
 - [ ] Checking For Field Equality
