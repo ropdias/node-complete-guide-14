@@ -11,7 +11,7 @@ Section 18 covered:
 - [x] Built-In & Custom Validators
 - [x] More Validators
 - [x] Checking For Field Equality
-- [ ] Adding Async Validation
+- [x] Adding Async Validation
 - [ ] Keeping User Input
 - [ ] Adding Conditional CSS Classes
 - [ ] Adding Validation to Login
