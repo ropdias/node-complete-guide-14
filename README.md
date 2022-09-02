@@ -9,7 +9,7 @@ Section 18 covered:
 - [x] Setup & Basic Validation
 - [x] Using Validation Error Messages
 - [x] Built-In & Custom Validators
-- [ ] More Validators
+- [x] More Validators
 - [ ] Checking For Field Equality
 - [ ] Adding Async Validation
 - [ ] Keeping User Input
