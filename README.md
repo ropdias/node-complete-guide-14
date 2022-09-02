@@ -8,7 +8,7 @@ Section 18 covered:
 - [x] How to Validate Input?
 - [x] Setup & Basic Validation
 - [x] Using Validation Error Messages
-- [ ] Built-In & Custom Validators
+- [x] Built-In & Custom Validators
 - [ ] More Validators
 - [ ] Checking For Field Equality
 - [ ] Adding Async Validation
