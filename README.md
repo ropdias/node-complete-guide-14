@@ -10,7 +10,7 @@ Section 18 covered:
 - [x] Using Validation Error Messages
 - [x] Built-In & Custom Validators
 - [x] More Validators
-- [ ] Checking For Field Equality
+- [x] Checking For Field Equality
 - [ ] Adding Async Validation
 - [ ] Keeping User Input
 - [ ] Adding Conditional CSS Classes
