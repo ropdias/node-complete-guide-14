@@ -12,7 +12,7 @@ Section 18 covered:
 - [x] More Validators
 - [x] Checking For Field Equality
 - [x] Adding Async Validation
-- [ ] Keeping User Input
+- [x] Keeping User Input
 - [ ] Adding Conditional CSS Classes
 - [ ] Adding Validation to Login
 - [ ] Sanitizing Data
