@@ -13,10 +13,14 @@ router.get("/signup", authController.getSignup);
 router.post(
   "/login",
   [
-    body("email").isEmail().withMessage("Please enter a valid e-mail."),
+    body("email")
+      .isEmail()
+      .withMessage("Please enter a valid e-mail.")
+      .normalizeEmail(), // Sanitizer to normalize e-mail addresses
     body("password", "Password has to be valid.")
       .isLength({ min: 5 })
-      .isAlphanumeric(),
+      .isAlphanumeric()
+      .trim(), // Sanitizer to remove spaces
   ],
   authController.postLogin
 );
@@ -39,7 +43,8 @@ router.post(
             );
           }
         });
-      }),
+      })
+      .normalizeEmail(), // Sanitizer to normalize e-mail addresses
     // we will use the body here just to show that we can use a specific function
     // that look inside a specific place instead of a genereic check
     // You can also pass a second argument to replace the default error message and make it generic
@@ -52,16 +57,19 @@ router.post(
       // .withMessage(
       //   "Please enter a password with only numbers and text and at least 5 characters"
       // )
-      .isAlphanumeric(), // This is just a demonstration, in production we should allow special characters
+      .isAlphanumeric() // This is just a demonstration, in production we should allow special characters
+      .trim(), // Sanitizer to remove spaces
     // .withMessage(
     //   "Please enter a password with only numbers and text and at least 5 characters"
     // ),
-    body("confirmPassword").custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords have to match!");
-      }
-      return true;
-    }),
+    body("confirmPassword")
+      .trim() // Sanitizer to remove spaces
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error("Passwords have to match!");
+        }
+        return true;
+      }),
   ],
   authController.postSignup
 );
