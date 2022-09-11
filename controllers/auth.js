@@ -28,6 +28,11 @@ exports.getLogin = (req, res, next) => {
     path: "/login",
     pageTitle: "Login",
     errorMessage: message,
+    oldInput: {
+      email: "",
+      password: "",
+    },
+    validationErrors: [],
   });
 };
 
@@ -63,6 +68,11 @@ exports.postLogin = (req, res, next) => {
       path: "/login",
       pageTitle: "Login",
       errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email: email,
+        password: password,
+      },
+      validationErrors: errors.array(),
     });
   }
 
@@ -70,8 +80,16 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        req.flash("error", "Invalid email or password."); // We use both (email and password) here so people don't know which part was wrong
-        return res.redirect("/login");
+        return res.status(422).render("auth/login", {
+          path: "/login",
+          pageTitle: "Login",
+          errorMessage: "Invalid email or password.", // We use both (email and password) here so people don't know which part was wrong
+          oldInput: {
+            email: email,
+            password: password,
+          },
+          validationErrors: [], // Another option: [{ param: "email", param: "password" }]
+        });
       }
       bcrypt
         .compare(password, user.password)
@@ -85,12 +103,20 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/");
             });
           } else {
-            req.flash("error", "Invalid email or password."); // We use both (email and password) here so people don't know which part was wrong
             req.session.isLoggedIn = false;
             req.session.user = null;
             req.session.save((err) => {
               if (err) console.log(err);
-              res.redirect("/login");
+              return res.status(422).render("auth/login", {
+                path: "/login",
+                pageTitle: "Login",
+                errorMessage: "Invalid email or password.", // We use both (email and password) here so people don't know which part was wrong
+                oldInput: {
+                  email: email,
+                  password: password,
+                },
+                validationErrors: [], // Another option: [{ param: "email", param: "password" }]
+              });
             });
           }
         })

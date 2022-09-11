@@ -14,7 +14,7 @@ Section 18 covered:
 - [x] Adding Async Validation
 - [x] Keeping User Input
 - [x] Adding Conditional CSS Classes
-- [ ] Adding Validation to Login
+- [x] Adding Validation to Login
 - [ ] Sanitizing Data
 - [ ] Validating Product Addition
 - [ ] Validating Product Editing
