@@ -18,9 +18,9 @@ router.post(
       .withMessage("Please enter a valid e-mail.")
       .normalizeEmail(), // Sanitizer to normalize e-mail addresses
     body("password", "Password has to be valid.")
+      .trim() // Sanitizer to remove spaces
       .isLength({ min: 5 })
-      .isAlphanumeric()
-      .trim(), // Sanitizer to remove spaces
+      .isAlphanumeric(),
   ],
   authController.postLogin
 );
@@ -53,12 +53,13 @@ router.post(
       "password",
       "Please enter a password with only numbers and text and at least 5 characters"
     )
+      .trim() // Sanitizer to remove spaces
       .isLength({ min: 5 }) // This is just a demonstration, in production it should have more characters
       // .withMessage(
       //   "Please enter a password with only numbers and text and at least 5 characters"
       // )
-      .isAlphanumeric() // This is just a demonstration, in production we should allow special characters
-      .trim(), // Sanitizer to remove spaces
+      .isAlphanumeric(), // This is just a demonstration, in production we should allow special characters
+
     // .withMessage(
     //   "Please enter a password with only numbers and text and at least 5 characters"
     // ),
