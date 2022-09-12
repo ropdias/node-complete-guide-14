@@ -41,10 +41,15 @@ router.post(
   "/edit-product",
   isAuth,
   [
-    body("title").trim().isAlphanumeric().isLength({ min: 3 }),
-    body("imageUrl").isURL(),
-    body("price").isFloat(),
-    body("description").trim().isLength({ min: 3, max: 400 }),
+    body("title", "Invalid Title. (Should be a string and length > 3)")
+      .trim()
+      .isString()
+      .isLength({ min: 3 }),
+    body("imageUrl", "Invalid image URL").isURL(),
+    body("price", "Invalid price. (Should be a currency number)").isCurrency(),
+    body("description", "Invalid description (Should have length > 3 and < 400")
+      .trim()
+      .isLength({ min: 3, max: 400 }),
   ],
   adminController.postEditProduct
 );

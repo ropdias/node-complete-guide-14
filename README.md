@@ -17,7 +17,7 @@ Section 18 covered:
 - [x] Adding Validation to Login
 - [x] Sanitizing Data
 - [x] Validating Product Addition
-- [ ] Validating Product Editing
+- [x] Validating Product Editing
 
 
 

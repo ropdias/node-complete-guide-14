@@ -79,7 +79,7 @@ exports.getEditProduct = (req, res, next) => {
       }
       res.render("admin/edit-product", {
         pageTitle: "Edit Product",
-        path: "/admin/edit-product",
+        path: "/admin/add-product",
         editing: editMode,
         product: product,
         errorMessage: null,
@@ -96,6 +96,23 @@ exports.postEditProduct = (req, res, next) => {
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render("admin/edit-product", {
+      path: "/admin/add-product",
+      pageTitle: "Edit Product",
+      editing: true,
+      product: {
+        title: updatedTitle,
+        imageUrl: updatedImageUrl,
+        price: updatedPrice,
+        description: updatedDesc,
+        _id: prodId
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
+    });
+  }
 
   Product.findById(prodId) // findById() returns a mongoose object where we can call .save()
     .then((product) => {
