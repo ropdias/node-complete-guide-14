@@ -37,18 +37,10 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
-  let message = req.flash("error"); // What I stored in 'error' will be retrivied here, and after we get it, it will be removed from the session
-  // We need the validation below because flash() returns an array and we need to check if it has something, otherwise set it to null
-  // So we can use in the views: <% if (errorMessage) { %> ...
-  if (message.length > 0) {
-    message = message[0];
-  } else {
-    message = null;
-  }
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Signup",
-    errorMessage: message,
+    errorMessage: null,
     oldInput: {
       email: "",
       password: "",
