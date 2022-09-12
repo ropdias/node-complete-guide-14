@@ -16,7 +16,7 @@ Section 18 covered:
 - [x] Adding Conditional CSS Classes
 - [x] Adding Validation to Login
 - [x] Sanitizing Data
-- [ ] Validating Product Addition
+- [x] Validating Product Addition
 - [ ] Validating Product Editing
 
 
