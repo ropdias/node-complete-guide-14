@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 
 const Product = require("../models/product");
+const User = require("../models/user");
 
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
@@ -107,7 +108,7 @@ exports.postEditProduct = (req, res, next) => {
         imageUrl: updatedImageUrl,
         price: updatedPrice,
         description: updatedDesc,
-        _id: prodId
+        _id: prodId,
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
@@ -151,11 +152,23 @@ exports.getProducts = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
   // Fetch information from the product
   const prodId = req.body.productId;
-  // It's not removing from every cart yet !
   Product.deleteOne({ _id: prodId, userId: req.user._id })
     .then((result) => {
       if (result.deletedCount > 0) {
-        console.log("Deleted product and removed it from every cart !"); // It's not removing from every cart yet !
+        console.log(
+          `Deleted product ! (Total deleted: ${result.deletedCount})`
+        );
+      }
+      return User.updateMany(
+        {},
+        { $pull: { "cart.items": { productId: prodId } } }
+      );
+    })
+    .then((result) => {
+      if (result.modifiedCount > 0) {
+        console.log(
+          `Removed product from every cart ! (Total modified: ${result.modifiedCount})`
+        );
       }
       res.redirect("/admin/products");
     })
